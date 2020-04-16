@@ -53,7 +53,7 @@
       </div>
       <div>
         <h3>Orientation:5 Fixed</h3>
-        <img src="/static/f5t.jpg" v-img-orientation-changer.debug alt="">
+        <img crossorigin="anonymous" src="http://127.0.0.1:8080/static/f5t.jpg" v-img-orientation-changer.debug alt="">
       </div>
       <div>
         <h3>Orientation:6 Fixed</h3>
@@ -92,7 +92,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
   #app {
     display: flex;
     align-items: center;
@@ -105,12 +105,12 @@ export default {
     text-align: center;
     margin-bottom: 20px;
     display: flex;
-    > div {
-      width: 150px;
-      height: 150px;
-      padding: 10px;
-      border: 1px solid #e3e3e4;
-    }
+  }
+  .img-wrapper div {
+    width: 150px;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #e3e3e4;
   }
   img {
     display: inline-block;

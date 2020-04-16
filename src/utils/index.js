@@ -1,19 +1,30 @@
-import imagesLoaded from 'imagesloaded'
 import EXIF from 'exif-js'
 
 const getEXIFOrientation = (el, debug) => {
   return new Promise((resolve, reject) => {
+    const resoveLoad = function() {
+      el.exifdata = null;
+      EXIF.getData(el, function () {
+        const orientation = EXIF.getTag(this, 'Orientation');
+        if (debug) { console.log('getEXIFOrientation', orientation); }
+        resolve(orientation)
+      });
+    };
+
     try {
-      imagesLoaded(el, function () {
-        el.exifdata = null;
-        EXIF.getData(el, function () {
-          const orientation = EXIF.getTag(this, 'Orientation');
-          if(debug) { console.log('getEXIFOrientation', orientation); }
-          resolve(orientation)
+      if (el.complete) {
+        resoveLoad();
+      } else {
+        el.addEventListener('load', function() {
+          resoveLoad();
         });
-      })
+
+        el.addEventListener('error', function(e) {
+          reject(e);
+        });
+      }
     } catch (e) {
-      reject(e)
+      reject(e);
     }
   })
 };
